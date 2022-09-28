@@ -31,6 +31,9 @@ public final class Directory: SystemEntry, DirectoryType {
 
     public func clear(recursively: Bool) throws {
         for entry in entries {
+            if let directory = entry as? Directory, recursively {
+                try directory.clear(recursively: recursively)
+            }
             try entry.delete()
         }
     }

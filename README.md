@@ -4,6 +4,19 @@
 
 It is a wrapper around the Apple FileManager class for managing the file system in object format.
 
+## Next step
+
+- [ ] Unit tests
+- [ ] CI
+  - [ ] Build iOS sample
+  - [ ] Build macOS sample
+  - [ ] Launch unit tests
+  - [ ] Build package
+  - [ ] Swiftlint
+- [ ] Implement device class
+- [ ] Test on tvOS
+- [ ] Add logger
+
 ## Dependencies
 
 No dependency is necessary.
@@ -52,6 +65,20 @@ It is possible to retrieve the first level of the tree directly with the `FileSy
 ### Directories and files are stateless
 
 The classes representing the directories and files do not have a state, so each time you ask for the tree structure or the reading of a file, it is done on the disk in order to avoid the changes done by another application.
+
+### Create a file or directory
+
+Each folder can create files and subfolders from a simple name :
+
+```swift
+guard let directory = fileSystem.getDirectory(from: directoryUrl) else { return }
+do {
+    try directory.createFile(with: "myFile", ext: "txt")
+    try directory.createDirectory(with: "myDirectory")
+} catch {
+    print("Oops! Impossible to create file or folder")
+}
+```
 
 ## Samples
 
